@@ -9,6 +9,11 @@
             "amount": 20.0,
             "category": "liquid",
             "date": "2024-12-22"
+        },
+        {
+            "amount": 40.0,
+            "category": "Pizza",
+            "date": "2024-12-20"
         }
     ],
     "limits": {}

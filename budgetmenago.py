@@ -23,6 +23,10 @@ class BudgetApp:
         self.root.rowconfigure(0, weight=1)
         self.root.columnconfigure(0, weight=1)
 
+        # Domyślna wielkość czcionki
+        self.font_size = 24
+        self.root.option_add("*Font", f"TkDefaultFont {self.font_size}")
+
         self.setup_ui()
 
     def setup_ui(self):
@@ -33,11 +37,13 @@ class BudgetApp:
         self.history_tab = ttk.Frame(tab_control)
         self.summary_tab = ttk.Frame(tab_control)
         self.limits_tab = ttk.Frame(tab_control)
+        self.settings_tab = ttk.Frame(tab_control)
 
         tab_control.add(self.add_tab, text="Dodaj wydatek")
         tab_control.add(self.history_tab, text="Historia wydatków")
         tab_control.add(self.summary_tab, text="Podsumowanie")
         tab_control.add(self.limits_tab, text="Limity")
+        tab_control.add(self.settings_tab, text="Ustawienia")
 
         tab_control.grid(row=0, column=0, sticky="nsew")
 
@@ -45,6 +51,7 @@ class BudgetApp:
         self.create_history_tab()
         self.create_summary_tab()
         self.create_limits_tab()
+        self.create_settings_tab()
 
     def load_data(self):
         with open(DATA_FILE, "r") as file:
@@ -181,7 +188,21 @@ class BudgetApp:
         except ValueError as e:
             messagebox.showerror("Błąd", str(e))
 
+    def create_settings_tab(self):
+        tk.Label(self.settings_tab, text="Regulacja rozmiaru czcionki:").grid(row=0, column=0, padx=10, pady=10, sticky="w")
+
+        self.font_size_slider = ttk.Scale(
+            self.settings_tab, from_=10, to=40, orient="horizontal", command=self.update_font_size
+        )
+        self.font_size_slider.set(self.font_size)
+        self.font_size_slider.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
+
+    def update_font_size(self, value):
+        self.font_size = int(float(value))
+        self.root.option_add("*Font", f"TkDefaultFont {self.font_size}")
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = BudgetApp(root)
     root.mainloop()
+    
