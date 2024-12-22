@@ -1,0 +1,15 @@
+{
+    "expenses": [
+        {
+            "amount": 32.0,
+            "category": "Zakupy",
+            "date": "2024-12-22"
+        },
+        {
+            "amount": 20.0,
+            "category": "liquid",
+            "date": "2024-12-22"
+        }
+    ],
+    "limits": {}
+}
